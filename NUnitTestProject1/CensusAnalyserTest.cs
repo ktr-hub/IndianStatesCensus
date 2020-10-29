@@ -33,6 +33,7 @@ namespace NUnitTestProject1
             stateRecord = new Dictionary<string, CensusDTO>();
         }
 
+        //UC-1
         //HAPPY Test Case
         [Test]
         public void GivenIndianCensusDataFile_WhenReaded_ShouldReturnCensusDataCount()
@@ -72,6 +73,48 @@ namespace NUnitTestProject1
             totalRecord = censusAnalyzer.LoadCensusData(Country.INDIA, wrongHeaderIndianCensusFilePath, wrongHeaderIndianCensusFilePath);
             Assert.AreEqual(29, totalRecord.Count);
         }
+
+        //UC-2
+        //HAPPY Test Case
+        [Test]
+        public void GivenStateCode_WhenReaded_ShouldReturnCensusDataCount()
+        {
+            stateRecord = censusAnalyzer.LoadCensusData(Country.INDIA, indianStateCodeFilePath, indianStateCodeHeaders);
+            Assert.AreEqual(37, stateRecord.Count);
+        }
+
+        //SAD Test Case
+        [Test]
+        public void GivenStateCode_WhenReaded_ShouldReturnException()
+        {
+            stateRecord = censusAnalyzer.LoadCensusData(Country.INDIA, indianStateCodeFilePath, indianStateCodeHeaders);
+            Assert.AreEqual(29, stateRecord.Count);
+        }
+
+        //SAD Test Case
+        [Test]
+        public void GivenStateCodeFileTypeWrong_WhenReaded_ShouldReturnException()
+        {
+            stateRecord = censusAnalyzer.LoadCensusData(Country.INDIA, wrongIndianStateCodeFileType, indianStateCodeHeaders);
+            Assert.AreEqual(37, stateRecord.Count);
+        }
+
+        //SAD Test Case
+        [Test]
+        public void GivenStateCodeFileDelimeterWrong_WhenReaded_ShouldReturnException()
+        {
+            stateRecord = censusAnalyzer.LoadCensusData(Country.INDIA, delimeterIndianStateCodeFilePath, indianStateCodeHeaders);
+            Assert.AreEqual(37, stateRecord.Count);
+        }
+
+        //SAD Test Case
+        [Test]
+        public void GivenStateCodeFileCsvHeaderWrong_WhenReaded_ShouldReturnException()
+        {
+            stateRecord = censusAnalyzer.LoadCensusData(Country.INDIA, wrongHeaderStateCodeFilePath, wrongHeaderStateCodeFilePath);
+            Assert.AreEqual(37, stateRecord.Count);
+        }
+
 
     }
 }
